@@ -70,7 +70,7 @@ const TicTacToe = () => {
                 <td
                   key={colIndex}
                   onClick={() => onCellClick(rowIndex, colIndex)}
-                  style={{ width: "50px", height: "50px", textAlign: "center", border: "1px solid black", cursor: "pointer" }}
+                  style={{ width: "150px", height: "150px", textAlign: "center", border: "1px solid black", cursor: "pointer" }}
                 >
                   {cell}
                 </td>
