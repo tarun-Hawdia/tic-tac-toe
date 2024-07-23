@@ -1,13 +1,8 @@
 import React from "react";
 
-
-
-const Winner=()=>{
-    return (
-        <>
-        this is my winner</>
-    )
-}
-
+const Winner = ({ isWinnerFound, winner }) => {
+  return isWinnerFound ? <h1>Winner is {winner}</h1> : null;
+};
 
 export default Winner;
+

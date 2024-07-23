@@ -1,16 +1,11 @@
 import React, { useState } from "react";
-import Chance from "./chance";
 
-const TicTacToe = () => {
+const TicTacToe = ({ currentUser, setCurrentUser, isWinnerFound, setIsWinnerFound, setWinner }) => {
   const [matrix, setMatrix] = useState([
     ["", "", ""],
     ["", "", ""],
     ["", "", ""]
   ]);
-
-  const [currentUser, setCurrentUser] = useState("x");
-  const [isWinnerFound, setIsWinnerFound] = useState(false);
-  const [winner, setWinner] = useState("");
 
   const findWinner = (mat, user) => {
     // Check horizontal
@@ -40,49 +35,47 @@ const TicTacToe = () => {
   };
 
   const onCellClick = (row, col) => {
-    if (matrix[row][col] === "" && !isWinnerFound) {
-      const matrixCopy = matrix.map((r) => r.slice());
+    let matrixCopy = matrix.map((r) => r.slice());
 
+    if (matrixCopy[row][col] === "" && !isWinnerFound) {
       let currUser = currentUser;
       matrixCopy[row][col] = currUser;
 
-      const winner = findWinner(matrixCopy, currUser);
+      let winner = findWinner(matrixCopy, currUser);
       if (winner) {
         setIsWinnerFound(true);
         setWinner(winner);
-      } else {
-        currUser = currUser === "x" ? "o" : "x";
-        setCurrentUser(currUser);
       }
 
+      currUser = currUser === "x" ? "o" : "x";
       setMatrix(matrixCopy);
+      setCurrentUser(currUser);
     }
   };
 
   return (
     <>
-      <Chance currentUser={currentUser} />
       <table>
         <tbody>
-          {matrix.map((row, rowIndex) => (
-            <tr key={rowIndex}>
-              {row.map((cell, colIndex) => (
-                <td
-                  key={colIndex}
-                  onClick={() => onCellClick(rowIndex, colIndex)}
-                  style={{ width: "150px", height: "150px", textAlign: "center", border: "1px solid black", cursor: "pointer" }}
-                >
-                  {cell}
-                </td>
-              ))}
-            </tr>
-          ))}
+          <tr>
+            <td onClick={() => onCellClick(0, 0)}>{matrix[0][0]}</td>
+            <td onClick={() => onCellClick(0, 1)}>{matrix[0][1]}</td>
+            <td onClick={() => onCellClick(0, 2)}>{matrix[0][2]}</td>
+          </tr>
+          <tr>
+            <td onClick={() => onCellClick(1, 0)}>{matrix[1][0]}</td>
+            <td onClick={() => onCellClick(1, 1)}>{matrix[1][1]}</td>
+            <td onClick={() => onCellClick(1, 2)}>{matrix[1][2]}</td>
+          </tr>
+          <tr>
+            <td onClick={() => onCellClick(2, 0)}>{matrix[2][0]}</td>
+            <td onClick={() => onCellClick(2, 1)}>{matrix[2][1]}</td>
+            <td onClick={() => onCellClick(2, 2)}>{matrix[2][2]}</td>
+          </tr>
         </tbody>
       </table>
-      {isWinnerFound && <p>Winner is: {winner}</p>}
     </>
   );
 };
 
 export default TicTacToe;
-

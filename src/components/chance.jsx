@@ -1,11 +1,12 @@
 import React from "react";
 
-const Chance = ({ currentUser }) => {
-  return (
-    <div className="chance">
-      Current turn: {currentUser.toUpperCase()}
-    </div>
-  );
+const Chance = ({ currentUser ,isWinnerFound}) => {
+    if(!isWinnerFound){
+        
+         return <h1>It's {currentUser}'s turn</h1>;
+
+    }
+    return <></>
 };
 
 export default Chance;
